@@ -1,0 +1,23 @@
+#use <conio>
+#use <string>
+
+double newtonRaphson(float t);
+
+int main()
+{
+  int t = 3.0;
+  double r = newtonRaphson(t);
+  printf("The root of %f = %f.", t,r);
+}
+
+double newtonRaphson(float t)
+//@requires t>=0;
+//@ensures \result >= 0;
+{
+  double epsilon = 0.000001;
+  double root    = (t+0)/2.0;
+  while( abs(root*root>epsilon) ){
+    root = (root + t/root)/2.0;
+  }
+  return root;
+}

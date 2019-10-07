@@ -1,0 +1,7 @@
+from enaml.widgets.api import Window, Container, Label
+
+enamldef Main(Window):
+    attr message = "Hello World!"
+    Container:
+        Label:
+            text = message

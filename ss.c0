@@ -1,0 +1,50 @@
+#use <conio>
+#use <string>
+
+void swap(int[] A, int i, int j)
+{
+  int temp;
+  temp = A[i];
+  A[i] = A[j];
+  A[j] = temp;
+}
+
+int mini(int[] A, int lo, int hi)
+{
+  int m = 0x7FFFFFFF;
+  int index = 0;
+  for (int i=lo; i < hi; i++){
+    if (A[i] < m){
+    m = A[i];
+    index = i;
+    }
+  }
+  return index;
+}
+
+void selection_sort(int[] A , int lo, int hi)
+{
+  for (int i = lo; i < hi; i++){
+      int index = mini(A, i, hi);
+      swap(A, i, index);
+  }
+}
+
+int main()
+{
+  int[] A = alloc_array(int, 10);
+  for (int i = 0; i < 9; i++){
+     A[i] = 1;
+  }
+  A[1] = 7;
+  A[3] = 6;
+  A[2] = 99;
+  A[4] = 8;
+  selection_sort(A, 0, 9);
+  for (int i = 0; i < 9; i++){
+     printint(A[i]);
+     println("\n");
+  }
+
+  return 0;
+}
