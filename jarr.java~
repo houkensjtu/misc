@@ -1,9 +1,0 @@
-public class jarr
-{
-    public static void main(String args[])
-    {
-        int a[];
-        for(int i = 0; i < 7;i++) a[i] = i;
-	System.out.println(a[0]);
-    }
-}
