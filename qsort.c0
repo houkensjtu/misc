@@ -1,0 +1,64 @@
+#use <conio>
+#use <string>
+#use <rand>
+
+void qsort(int[] A, int lo, int hi);
+int partition(int[] A, int lo, int hi);
+void swap(int[] A, int i1, int i2);
+
+int main()
+{
+  int[] A = alloc_array(int, 100);
+
+  rand_t rt = init_rand(1000000);
+
+  for (int i = 0; i < 100; i ++){
+     A[i] = rand(rt);
+  }
+
+  println("Before qsort:\n");
+  for (int i = 0; i < 100; i ++){
+    printint(A[i]);println("");
+  }  
+
+  qsort(A, 0, 99);
+
+  println("After qsort:\n");
+  for (int i = 0; i < 100; i ++){
+    printint(A[i]);println("");
+  }    
+  return 0;
+}
+
+void qsort(int[] A, int lo, int hi)
+{
+   if (lo >= hi) return;
+
+   int pivot_index = partition(A, lo, hi);
+   
+   qsort(A, lo, pivot_index-1);
+   qsort(A, pivot_index+1, hi);
+}
+
+int partition(int[] A, int lo, int hi)
+{
+   int pivot = A[hi];
+
+   int pivot_index = lo;
+
+   for(int i = lo; i < hi ; i++){
+      if (A[i] < pivot) {
+         swap(A, i, pivot_index);
+         pivot_index++;
+      }
+   }
+   swap(A, pivot_index, hi);
+   return pivot_index;
+}
+
+void swap(int[] A, int i1, int i2)
+{
+   int temp = A[i1];
+   A[i1] = A[i2];
+   A[i2] = temp;
+}
