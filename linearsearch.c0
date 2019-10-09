@@ -1,0 +1,31 @@
+#use <conio>
+#use <string>
+
+int search(int[] A, int x, int lo, int hi);
+
+int main()
+{
+  int[] A = alloc_array(int, 10);
+  for (int i = 0; i < 10; i++){
+     A[i] = 3 * i;
+     printint(A[i]);println("");
+  }
+  int x = 27;
+  int result = search(A, x, 0, 10);
+  printint(result);println("");
+
+  return 0;
+}
+
+int search(int[] A, int x, int lo, int hi)
+//@requires lo >= 0 && lo <= hi && hi <= \length(A);
+{
+  for (int i = lo; i < hi; i++)
+  //@loop_invariant i >= lo && i <= hi;
+  {
+     if (A[i] == x){
+        return i;
+     }
+  }
+  return -1;
+}
