@@ -1,0 +1,5 @@
+struct img_header{
+  int width;
+  int height;
+  int[] data;
+};
