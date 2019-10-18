@@ -1,0 +1,51 @@
+#use <string>
+#use <conio>
+
+struct ssa_header{
+  string[] data;
+  int length;
+};
+
+typedef struct ssa_header ssa;
+
+typedef ssa* ssa_t;
+
+ssa_t ssa_new(int n)
+//@requires n > 0;
+//@ensures \result != NULL;
+{
+  ssa_t A = alloc(ssa);
+  A->data = alloc_array(string,n);
+  A->length = n;
+  return A;
+}
+
+int ssa_len(ssa_t A)
+//@requires A != NULL;
+//@ensures \result > 0;
+//@ensures \result == \length(A->data);
+{
+  return A->length;
+}
+
+string ssa_get(ssa_t A, int i)
+//@requires A != NULL;
+//@requires i >= 0 && i < ssa_len(A);
+{
+  return A->data[i];
+}
+
+void ssa_set(ssa_t A, int i, string s)
+//@requires A != NULL;
+//@requires i >= 0 && i < ssa_len(A);
+{
+  A->data[i] = s;
+}
+
+int main()
+{
+  ssa_t A = ssa_new(10);
+  ssa_set(A, 0, "Hello\n");
+  print(A->data[0]);
+  return 0;
+}

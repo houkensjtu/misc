@@ -3,6 +3,13 @@
 
 int main()
 {
-  int* ptr_one = (int *)malloc(100*sizeof(int));
-  printf("Finished.");
+  int a[100];
+  for(int i = 0; i < 100; i++){
+    a[i] = 1;
+  }
+
+  int* ptr = NULL;
+
+  *ptr = 0;
+  printf("Finished.\n");
 }
