@@ -2,16 +2,15 @@
 #use <conio>
 
 int partition(int[] A, int pi, int lo, int hi);
-void swap(int[] A, int i, int j);
+void _swap(int[] A, int i, int j);
 void qsort(int[] A, int lo, int hi);
-
 
 void qsort(int[] A, int lo, int hi)
 {
    if (hi > lo){
       int pi = partition(A, hi-1, lo, hi);
       qsort(A, lo, pi);
-      qsort(A, pi, hi);
+      qsort(A, pi + 1, hi);
    }
    else{
       return;
@@ -19,27 +18,33 @@ void qsort(int[] A, int lo, int hi)
 }
 
 int partition(int[] A, int pi, int lo, int hi)
+//@requires lo >= 0 && hi <= \length(A) && lo <= hi;
+//@requires pi >= lo && pi <= hi;
+//@ensures \result >= lo && \result < hi;
+//@ensures ge_seg(A[\result], A, lo, \result);
+//@ensures le_seg(A[\result], A, \result, hi);
 {
-  printint(lo);
-  printint(hi);
-  println("In partition");
-  swap(A, lo, pi);
+  _swap(A, lo, pi);
+  int pivot = A[lo];
   int right = hi - 1;
   int left = lo + 1;
-  for(int i = lo+1; i < hi; i++){
-    if(A[i] > A[lo]){
-       swap(A, i, right);
+  while(left <= right)
+  //@loop_invariant left >= lo + 1 && right <= hi && left <= right + 1;
+  {
+    if(A[left] > A[lo]){
+       _swap(A, left, right);
        right--;
     }
     else{
        left++;
     }
   }
-  swap(A, lo, left);
-  return left;
+  
+  _swap(A, lo, right);
+  return right;
 }
 
-void swap(int[] A, int i, int j)
+void _swap(int[] A, int i, int j)
 {
    int temp = A[i];
    A[i] = A[j];
@@ -48,15 +53,23 @@ void swap(int[] A, int i, int j)
 
 int main()
 {
-  int[] A = alloc_array(int, 15);
-  for(int i = 0; i < 15; i++){
+  int[] A = alloc_array(int, 20);
+
+  println("** Test sort **");
+  for(int i = 0; i < 20; i++){
      A[i] = 122 - i*i;
      printint(A[i]); println("");
   }
-  qsort(A, 0, 15);
 
-  for(int i = 0; i < 15; i++){
+  qsort(A, 0, 20);
+
+  println("** After sort **");
+  
+  for(int i = 0; i < 20; i++){
      printint(A[i]); println("");
   }
+
+  println("END");
+
   return 0;  
 }
