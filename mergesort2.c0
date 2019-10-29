@@ -1,0 +1,76 @@
+#use <string>
+#use <conio>
+
+void sort(int[] A, int lo, int hi);
+void merge(int[] A, int lo, int mid, int hi);
+void print_array(int[] A, int n);
+
+void sort(int[] A, int lo, int hi)
+//@requires lo >= 0 && hi <= \length(A) && lo <= hi;
+{
+//  print("Calling sort...");print(" lo = ");printint(lo);
+//  print(" hi = ");printint(hi);println("");
+  if (hi <= lo + 1) return;
+  int mid = (hi + lo) / 2;
+  sort(A, lo, mid);
+  sort(A, mid, hi);
+  merge(A, lo, mid, hi);
+}
+
+void merge(int[] A, int lo, int mid, int hi)
+//@requires lo >= 0 && hi <= \length(A) && lo <= hi;
+{
+//  println("Merging...");
+  int[] b = alloc_array(int, hi - lo + 1);
+
+  int left  = lo;
+  int right = mid;
+
+  for(int i = 0; i < hi-lo; i++)
+  {
+//    print("left = ");printint(left);
+//    print("right = ");printint(right);println("");
+//    print("i = ");printint(i);println("");
+    if(right >= hi || A[left] <= A[right]){
+      b[i] = A[left];
+      left++;
+    }
+    else{
+      b[i] = A[right];
+      right++;
+    }
+  }
+
+  for(int j = lo; j < hi; j++){
+    A[j] = b[j-lo];
+  }
+}
+
+void print_array(int[] A, int n)
+{
+  for (int i = 0; i < n; i++){
+     printint(A[i]);print(",");
+  }
+  println("");
+}
+
+int main()
+{
+
+  println("** Before sort **");
+  int[] A = alloc_array(int, 150);
+
+  for(int i = 0; i < 150; i++){
+     A[i] = 122 - i*i;
+  }
+  
+  print_array(A, 150);
+  
+  sort(A, 0, 150);
+  
+  println("** After sort **");
+
+  print_array(A, 150);
+
+  return 0;
+}
