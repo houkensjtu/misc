@@ -37,7 +37,7 @@ int main()
   cout << "y1 = " << y1 << ",y2 = " << y2 << endl;
 
   float arr[] = {1.1,2.2,3.3,4.4,5.5,6.6};
-  cout << "The ave of the array is: " << getAve(arr, 6) << endl;
+  cout << "The ave of the array is: " << getAve<float>(arr, 6) << endl;
 
   return 0;
 }
